@@ -6,7 +6,6 @@ public class Room {
     private String name;
     private String description;
 
-    public int numberOfDoors = 2;
     // konstruktor
     public Room(String name, String description) {
         this.name = name;
