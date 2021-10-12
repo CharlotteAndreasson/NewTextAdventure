@@ -5,81 +5,61 @@ public class Main {
     // Lägg in load
     public static void main(String[] args) {
         // Initialisering
-        Room yard = new Room("The yard", "A gravel yard with random old debris");
-        Room pigsty = new Room("The pigsty", "A noisy and smelly room full of cute pigs");
-        Room cricketShed = new Room("The cricket shed", "A cramped shed with crickets EVERYWHERE");
-        Room llamaPen = new Room("The llama pen", "A pen with tall juicy grass och floofy llamas");
+        Room samlingsrummet = new Room("samlingsrummet", "Här samlas eleverna på rasten ");
+        Room fransksalen = new Room("fransksalen", "Här ska du undervisa i franska");
+        Room biblioteket = new Room("biblioteket", "Här ska du vara bibliotekarie");
+        Room matematiksalen = new Room("matematiksalen", "Här ska du undervisa i matematik");
 
 
         Room[][] map = {
-                {yard, llamaPen},
-                {pigsty, cricketShed}
+                {samlingsrummet, matematiksalen},
+                {fransksalen, biblioteket}
         };
         int row = 0;
         int col = 0;
         Scanner input = new Scanner(System.in);
-
-        System.out.println("Welcome to Charlie's Farm");
+        System.out.println("Skriv ditt namn:");
+        String name = input.nextLine();
+        System.out.println("Hej " + name + ", välkommen till Bergsjöns högstadieskola. Här ska du vikariera idag." + "\n");
 
         boolean running = true;
 
         // Här börjar spelloopen
         while(running) {
             // Vilket rum vi är i
-            System.out.println(map[row][col].toString());
+            System.out.println("Du är nu i " + map[row][col].toString());
+
+            //Ask user to press enter to continue, big wall of text
+            Scanner paus = new Scanner(System.in);
+            System.out.println("Tryck \"ENTER\" för att fortsätta..");
+            paus.nextLine();
 
             // Läs in kommando från spelaren
-            System.out.print("> ");
+            System.out.println("Vart vill du gå? Ange en bokstav:" + "\n" + "A) fransksalen" + "\n" + "B) biblioteket" + "\n" + "C) matematiksalen");
             String command = input.nextLine();
 
-            // 3. Dela upp kommandot i olika delar, varje ord blir en sträng i en array
-            // Vi delar upp det inmatade värdet vid varje mellanslag
-            String [] commandParts = command.split(" ");
+            // Kollar vilket kommando som angivits
+            if (command.equalsIgnoreCase("A")) {
+                row = 1;
+                col = 0;
 
-            // 4. Kollar vilket "huvudkommando" som angivits
-            //    Dessa är:
-            //      - go
-            //      - save
-            //      - load
-            //      - quit
-            if(commandParts[0].equalsIgnoreCase("go")) {
+            } else if (command.equalsIgnoreCase("B")) {
+                row = 1;
+                col = 1;
 
-                if(commandParts.length >= 2) {
-                    if (commandParts[1].equalsIgnoreCase("north")) {
-                        row--;
-                        if(row < 0) {
-                            row = 0;
-                        }
-                    }
-                    else if(commandParts[1].equalsIgnoreCase("south")) {
-                        row++;
-                        if(row >= map.length) {
-                            row--;
-                        }
-                    }
-                    else if(commandParts[1].equalsIgnoreCase("east")) {
-                        col++;
-                        if(col >= map[row].length) { //varför map[row].length, inte col?
-                            col--;
-                        }
-                    }
-                    else if(commandParts[1].equalsIgnoreCase("west")) {
-                        col--;
-                        if(col < 0) {
-                            col = 0;
-                        }
-                    }
-                    System.out.println("Going " + commandParts[1]);
+            } else if (command.equalsIgnoreCase("C")) {
+                row = 0;
+                col = 1;
+
+            } else {
+                    System.out.println("Du måste ange A, B eller C");
                 }
-                else {
-                    System.out.println("You cannot go without any direction");
-                }
-            }
-            if(command.equalsIgnoreCase("quit")) {
+
+            if(command.equalsIgnoreCase("sluta")) {
                 running = false;
             }
         }
-        System.out.println("Thanks for playing Charlie's Farm");
+        System.out.println("Tack för att du vikarierade på Bergsjöns högstadieskola");
 
 
     }
