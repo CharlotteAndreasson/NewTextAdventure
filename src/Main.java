@@ -6,9 +6,9 @@ public class Main {
     public static void main(String[] args) {
         // Initialisering
         Room samlingsrummet = new Room("samlingsrummet", "Här samlas eleverna på rasten");
-        Room fransksalen = new Room("fransksalen", "Här ska du undervisa i franska");
-        Room religionssalen = new Room("religionssalen", "Här ska du undervisa i religion");
-        Room matematiksalen = new Room("matematiksalen", "Här ska du undervisa i matematik");
+        Room fransksalen = new LectureRoom("fransksalen", "Här ska du undervisa i ", "franska");
+        Room religionssalen = new LectureRoom("religionssalen", "Här ska du undervisa i ", "religion");
+        Room matematiksalen = new LectureRoom("matematiksalen", "Här ska du undervisa i ", "matematik");
 
 
         Room[][] map = {
@@ -48,15 +48,15 @@ public class Main {
             if (command.equalsIgnoreCase("A")) {
                 row = 1;
                 col = 0;
-                System.out.println("Du är nu i " + map[row][col].toString());
-                System.out.println("För att veta om du är behörig i att undervisa i franska,");
+                System.out.println("Du är nu i " + map[row][col].toString() + "\n");
+                System.out.println("För att veta om du är behörig i att undervisa i franska, "); // Hur gör jag "franska" till en subjectvariabel?
                 System.out.println("måste du först göra ett test. Vill du gå vidare? [JA/NEJ]");
                 String yesNo = input.nextLine();
                 if(yesNo.equalsIgnoreCase("ja")) {
                     System.out.println(frenchQuestion.questionAndOptions());
                     String abc = input.nextLine();
                     if(abc.equalsIgnoreCase("C")) {
-                        System.out.println("Korrekt! Du är behörig i att undervisa i franska.");
+                        System.out.println("Korrekt! Du är behörig i att undervisa i franska."); // Hur gör jag "franska" till en subjectvariabel?
                     } else {
                         System.out.println("Inkorrekt! Du får sparken!");
                     }
