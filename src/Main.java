@@ -5,21 +5,22 @@ public class Main {
     // Lägg in load
     public static void main(String[] args) {
         // Initialisering
-        Room samlingsrummet = new Room("samlingsrummet", "Här samlas eleverna på rasten ");
+        Room samlingsrummet = new Room("samlingsrummet", "Här samlas eleverna på rasten");
         Room fransksalen = new Room("fransksalen", "Här ska du undervisa i franska");
-        Room biblioteket = new Room("biblioteket", "Här ska du vara bibliotekarie");
+        Room religionssalen = new Room("religionssalen", "Här ska du undervisa i religion");
         Room matematiksalen = new Room("matematiksalen", "Här ska du undervisa i matematik");
 
 
         Room[][] map = {
                 {samlingsrummet, matematiksalen},
-                {fransksalen, biblioteket}
+                {fransksalen, religionssalen}
         };
         int row = 0;
         int col = 0;
 
-        Question askDirection = new Question("Vart vill du gå? Ange en bokstav:", "A) fransksalen", "B) biblioteket", "C) matematiksalen");
-        Question frenchQuestion = new Question("Vilken av följande verbformer är konditionalis? Ange en bokstav:", "A) veux", "B) voulais", "C) voudrais");
+        Question askDirection = new Question("Vart vill du gå?", "fransksalen", "religionssalen", "matematiksalen");
+        Question frenchQuestion = new subjectQuestion("franska", "Vilken av följande verbformer är konditionalis?", "veux", "voulais", "voudrais", "C");
+
 
         Scanner input = new Scanner(System.in);
         System.out.println("Skriv ditt namn:");
@@ -44,10 +45,10 @@ public class Main {
             String command = input.nextLine();
 
             // Kollar vilket kommando som angivits
-            if (command.equalsIgnoreCase("A")) { //Här ligger texterna i fel ordning
-                //row = 1;
-                //col = 0;
-                System.out.println("Du är nu i " + map[1][0].toString());
+            if (command.equalsIgnoreCase("A")) {
+                row = 1;
+                col = 0;
+                System.out.println("Du är nu i " + map[row][col].toString());
                 System.out.println("För att veta om du är behörig i att undervisa i franska,");
                 System.out.println("måste du först göra ett test. Vill du gå vidare? [JA/NEJ]");
                 String yesNo = input.nextLine();
@@ -66,11 +67,11 @@ public class Main {
                     System.out.println("Skriv \"JA\" eller \"NEJ\"");
                 }
 
-            } if (command.equalsIgnoreCase("B")) {
+            } else if (command.equalsIgnoreCase("B")) {
                 row = 1;
                 col = 1;
 
-            } if (command.equalsIgnoreCase("C")) {
+            } else if (command.equalsIgnoreCase("C")) {
                 row = 0;
                 col = 1;
 
