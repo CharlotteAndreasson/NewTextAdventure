@@ -1,8 +1,8 @@
-public class subjectQuestion extends Question {
+public class SubjectQuestion extends Question {
     private String correctAnswer;
     private String subject;
 
-    public subjectQuestion(String subject, String question, String optionA, String optionB, String optionC, String correctAnswer) {
+    public SubjectQuestion(String subject, String question, String optionA, String optionB, String optionC, String correctAnswer) {
         super(question, optionA, optionB, optionC);
         this.subject = subject;
         this.correctAnswer = correctAnswer;
@@ -14,6 +14,7 @@ public class subjectQuestion extends Question {
     public String getCorrectAnswer() {
         return correctAnswer;
     }
+
     public void setCorrectAnswer(String correctAnswer) {
         this.correctAnswer = correctAnswer;
     }

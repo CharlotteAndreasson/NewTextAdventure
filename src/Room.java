@@ -29,4 +29,8 @@ public class Room {
         return roomString;
 
     }
+
+    public String enterLectureRoom() {
+        return null;
+    }
 }

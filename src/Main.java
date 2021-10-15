@@ -7,19 +7,23 @@ public class Main {
         // Initialisering
         Room samlingsrummet = new Room("samlingsrummet", "Här samlas eleverna på rasten");
         Room fransksalen = new LectureRoom("fransksalen", "Här ska du undervisa i ", "franska");
-        Room religionssalen = new LectureRoom("religionssalen", "Här ska du undervisa i ", "religion");
+        Room idrottssalen = new LectureRoom("idrottssalen", "Här ska du undervisa i ", "idrott");
         Room matematiksalen = new LectureRoom("matematiksalen", "Här ska du undervisa i ", "matematik");
 
 
         Room[][] map = {
                 {samlingsrummet, matematiksalen},
-                {fransksalen, religionssalen}
+                {fransksalen, idrottssalen}
         };
         int row = 0;
         int col = 0;
 
-        Question askDirection = new Question("Vart vill du gå?", "fransksalen", "religionssalen", "matematiksalen");
-        Question frenchQuestion = new subjectQuestion("franska", "Vilken av följande verbformer är konditionalis?", "veux", "voulais", "voudrais", "C");
+        Question askDirection = new Question("Vart vill du gå?", "fransksalen", "idrottssalen", "matematiksalen");
+        SubjectQuestion frenchQuestion = new SubjectQuestion("franska", "Vilken av följande verbformer är konditionalis?", "veux", "voulais", "voudrais", "C");
+        SubjectQuestion sportsQuestion = new SubjectQuestion("idrott", "Från vilken världsdel kommer sporten Lacrosse?", "Oceanien", "Nordamerika", "Europa", "B");
+        SubjectQuestion mathsQuestion = new SubjectQuestion("matematik", "Vilket är rätt svar på följande mattetal: 7 + 2 x 5 - 8 = ?", "22", "37", "9", "C");
+
+
 
 
         Scanner input = new Scanner(System.in);
@@ -48,14 +52,15 @@ public class Main {
             if (command.equalsIgnoreCase("A")) {
                 row = 1;
                 col = 0;
-                System.out.println("Du är nu i " + map[row][col].toString() + "\n");
-                System.out.println("För att veta om du är behörig i att undervisa i franska, "); // Hur gör jag "franska" till en subjectvariabel?
-                System.out.println("måste du först göra ett test. Vill du gå vidare? [JA/NEJ]");
+                System.out.println(fransksalen.enterLectureRoom());
+                //System.out.println("Du är nu i " + map[row][col].toString() + "\n");
+                //System.out.println("För att veta om du är behörig i att undervisa i franska, "); // Hur gör jag "franska" till en subjectvariabel?
+                //System.out.println("måste du först göra ett test. Vill du gå vidare? [JA/NEJ]");
                 String yesNo = input.nextLine();
                 if(yesNo.equalsIgnoreCase("ja")) {
                     System.out.println(frenchQuestion.questionAndOptions());
-                    String abc = input.nextLine();
-                    if(abc.equalsIgnoreCase("C")) {
+                    String answer = input.nextLine();
+                    if(answer.equalsIgnoreCase(frenchQuestion.getCorrectAnswer())) {
                         System.out.println("Korrekt! Du är behörig i att undervisa i franska."); // Hur gör jag "franska" till en subjectvariabel?
                     } else {
                         System.out.println("Inkorrekt! Du får sparken!");

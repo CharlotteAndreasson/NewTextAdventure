@@ -18,4 +18,11 @@ public class LectureRoom extends Room {
 
         return roomString;
     }
+    public String enterLectureRoom()  {
+        String teacherQualification = "Du är nu i " + getName() + "\n" + getDescription() + getSubject() + "\n" + "\n";
+        teacherQualification = teacherQualification + "För att veta om du är behörig i att undervisa i " + getSubject() + "," + "\n";
+        teacherQualification = teacherQualification + "måste du först göra ett test. Vill du gå vidare? [JA/NEJ]";
+
+        return teacherQualification;
+    }
 }
