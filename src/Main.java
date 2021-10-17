@@ -20,12 +20,13 @@ public class Main {
 
         Question askDirection = new Question("Vart vill du gå?", "fransksalen", "idrottssalen", "matematiksalen");
         SubjectQuestion frenchQuestion = new SubjectQuestion("franska", "Vilken av följande verbformer är konditionalis?", "veux", "voulais", "voudrais", "C");
+        fransksalen.setSubjectQuestion(frenchQuestion);
         SubjectQuestion sportsQuestion = new SubjectQuestion("idrott", "Från vilken världsdel kommer sporten Lacrosse?", "Oceanien", "Nordamerika", "Europa", "B");
+        idrottssalen.setSubjectQuestion(sportsQuestion);
         SubjectQuestion mathsQuestion = new SubjectQuestion("matematik", "Vilket är rätt svar på följande mattetal: 7 + 2 x 5 - 8 = ?", "22", "37", "9", "C");
+        matematiksalen.setSubjectQuestion(mathsQuestion);
 
-
-
-
+        // Initialization
         Scanner input = new Scanner(System.in);
         System.out.println("Skriv ditt namn:");
         String name = input.nextLine();
@@ -41,8 +42,6 @@ public class Main {
 
         // Här börjar spelloopen
         while(running) {
-            // Vilket rum vi är i
-            //System.out.println("Du är nu i " + map[row][col].toString());
 
             // Läs in kommando från spelaren
             System.out.println(askDirection.questionAndOptions());

@@ -5,6 +5,7 @@ public class Room {
 
     private String name;
     private String description;
+    private SubjectQuestion subjectQuestion;
 
 
     // konstruktor
@@ -29,7 +30,10 @@ public class Room {
         return roomString;
 
     }
-
+    // Store a created item in the item variable in room.
+    public void setSubjectQuestion(SubjectQuestion subjectQuestion) {
+        this.subjectQuestion = subjectQuestion;
+    }
     public String enterLectureRoom() {
         return null;
     }
