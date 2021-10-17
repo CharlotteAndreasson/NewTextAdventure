@@ -51,10 +51,7 @@ public class Main {
             if (command.equalsIgnoreCase("A")) {
                 row = 1;
                 col = 0;
-                System.out.println(fransksalen.enterLectureRoom());
-                //System.out.println("Du är nu i " + map[row][col].toString() + "\n");
-                //System.out.println("För att veta om du är behörig i att undervisa i franska, "); // Hur gör jag "franska" till en subjectvariabel?
-                //System.out.println("måste du först göra ett test. Vill du gå vidare? [JA/NEJ]");
+                System.out.println(map[row][col].enterLectureRoom());
                 String yesNo = input.nextLine();
                 if(yesNo.equalsIgnoreCase("ja")) {
                     System.out.println(frenchQuestion.questionAndOptions());
@@ -74,23 +71,48 @@ public class Main {
             } else if (command.equalsIgnoreCase("B")) {
                 row = 1;
                 col = 1;
+                System.out.println(map[row][col].enterLectureRoom());
+                String yesNo = input.nextLine();
+                if(yesNo.equalsIgnoreCase("ja")) {
+                    System.out.println(sportsQuestion.questionAndOptions());
+                    String answer = input.nextLine();
+                    if (answer.equalsIgnoreCase(sportsQuestion.getCorrectAnswer())) {
+                        System.out.println("Korrekt! Du är behörig i att undervisa i idrott."); // Hur gör jag "franska" till en subjectvariabel?
+                    } else {
+                        System.out.println("Inkorrekt! Du får sparken!");
+                    }
+                }
+                else if(yesNo.equalsIgnoreCase("nej")) {
+                    System.out.println("Du är tillbaka i " +map[0][0].toString());
+                } else {
+                    System.out.println("Skriv \"JA\" eller \"NEJ\"");
+                }
 
             } else if (command.equalsIgnoreCase("C")) {
                 row = 0;
                 col = 1;
+                System.out.println(map[row][col].enterLectureRoom());
+                String yesNo = input.nextLine();
+                if (yesNo.equalsIgnoreCase("ja")) {
+                    System.out.println(mathsQuestion.questionAndOptions());
+                    String answer = input.nextLine();
+                    if (answer.equalsIgnoreCase(mathsQuestion.getCorrectAnswer())) {
+                        System.out.println("Korrekt! Du är behörig i att undervisa i matematik."); // Hur gör jag "franska" till en subjectvariabel?
+                    } else {
+                        System.out.println("Inkorrekt! Du får sparken!");
+                    }
+                } else if (yesNo.equalsIgnoreCase("nej")) {
+                    System.out.println("Du är tillbaka i " + map[0][0].toString());
+                } else {
+                    System.out.println("Skriv \"JA\" eller \"NEJ\"");
+                }
 
-            if(command.equalsIgnoreCase("sluta")) {
+            } else if(command.equalsIgnoreCase("sluta")) {
                 running = false;
-
+                System.out.println("Tack för att du vikarierade på Bergsjöns högstadieskola");
             } else {
                     System.out.println("Ange ett giltigt kommando");
                 }
-
-
             }
-        }
-        System.out.println("Tack för att du vikarierade på Bergsjöns högstadieskola");
-
-
     }
 }
