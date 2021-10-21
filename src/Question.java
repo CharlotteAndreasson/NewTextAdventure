@@ -23,4 +23,7 @@ public class Question {
 
         return questionString;
     }
+    public String confirmedQualification() {
+        return null;
+    }
 }

@@ -6,9 +6,9 @@ public class Main {
     public static void main(String[] args) {
         // Initialisering
         Room samlingsrummet = new Room("samlingsrummet", "Här samlas eleverna på rasten");
-        Room fransksalen = new LectureRoom("fransksalen", "Här ska du undervisa i ", "franska");
-        Room idrottssalen = new LectureRoom("idrottssalen", "Här ska du undervisa i ", "idrott");
-        Room matematiksalen = new LectureRoom("matematiksalen", "Här ska du undervisa i ", "matematik");
+        LectureRoom fransksalen = new LectureRoom("fransksalen", "Här ska du undervisa i ", "franska");
+        LectureRoom idrottssalen = new LectureRoom("idrottssalen", "Här ska du undervisa i ", "idrott");
+        LectureRoom matematiksalen = new LectureRoom("matematiksalen", "Här ska du undervisa i ", "matematik");
 
 
         Room[][] map = {
@@ -17,6 +17,8 @@ public class Main {
         };
         int row = 0;
         int col = 0;
+
+
 
         Question askDirection = new Question("Vart vill du gå?", "fransksalen", "idrottssalen", "matematiksalen");
         SubjectQuestion frenchQuestion = new SubjectQuestion("franska", "Vilken av följande verbformer är konditionalis?", "veux", "voulais", "voudrais", "C");
@@ -63,7 +65,9 @@ public class Main {
                     }
                 }
                 else if(yesNo.equalsIgnoreCase("nej")) {
-                    System.out.println("Du är tillbaka i " +map[0][0].toString());
+                    row = 0;
+                    col = 0;
+                    System.out.println("Du är tillbaka i " +map[row][col].toString());
                 } else {
                     System.out.println("Skriv \"JA\" eller \"NEJ\"");
                 }
@@ -106,6 +110,7 @@ public class Main {
                 } else {
                     System.out.println("Skriv \"JA\" eller \"NEJ\"");
                 }
+
 
             } else if(command.equalsIgnoreCase("sluta")) {
                 running = false;
