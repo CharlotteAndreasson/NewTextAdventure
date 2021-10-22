@@ -16,6 +16,8 @@ public class Room {
     }
     public String getName() {return name;}
 
+    public String getSubject() {return "Detta rum har inget ämne";}
+
     public String getDescription() {return description;}
 
     public void setName(String newName) {name = newName; }
@@ -36,5 +38,9 @@ public class Room {
     }
     public String enterLectureRoom() {
         return null;
+    }
+
+    public SubjectQuestion getSubjectQuestion() {
+        return subjectQuestion;
     }
 }
