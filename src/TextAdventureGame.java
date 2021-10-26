@@ -8,39 +8,42 @@ public class TextAdventureGame {
     Scanner input;
     Room[] map;
     Question[] questionList;
-
+    int roomIndex;
+    String qualified;
 
     public TextAdventureGame() {
+        roomIndex = 0;
         input = new Scanner(System.in);
-    }
 
-    /*
-    public static void save(Room room) { //Vad ska finnas i parentesen?
-        File file = new File("./save/saved_game.txt");
+    }
+    public void save() {
+        File file = new File("./Files/save.txt");
         try {
             FileWriter fileWriter = new FileWriter(file);
-            String position = String.format("%d, %d"); // Ska jag skriva map[]?
+            String position = String.format("%d", roomIndex);
             fileWriter.write(position);
+            qualified = String.valueOf(map[roomIndex].getIsQualified());
+            fileWriter.write(qualified);
             fileWriter.close();
-            System.out.println("The game is saved");
+            System.out.println("Spelet har sparats");
         } catch (IOException e) {
-            System.out.println("Could not save the game");
+            System.out.println("Kunde inte spara spelet");
         }
     }
 
-     */
 
-    public static String load() {
-        File file = new File("./save/saved_game.txt");
+
+    public void load() {
+        File file = new File("./Files/save.txt");
         try {
             Scanner fileScanner = new Scanner(file);
             String position = fileScanner.nextLine();
             fileScanner.close();
-            return position;
+            roomIndex = Integer.parseInt(position);
+            //map[roomIndex].isQualified() = Boolean.parseBoolean(qualified); // FIXA
         } catch (FileNotFoundException e) {
-            System.out.println("Could not load a saved game");
+            System.out.println("Kunde inte ladda sparat spel");
         }
-        return null;
     }
     Room samlingsrummet = new Room("samlingsrummet", "Här samlas eleverna på rasten");
     LectureRoom fransksalen = new LectureRoom("fransksalen", "Här ska du undervisa i ", "franska");
@@ -54,6 +57,7 @@ public class TextAdventureGame {
         //idrottssalen.setSubjectQuestion(sportsQuestion);
     SubjectQuestion mathsQuestion = new SubjectQuestion("matematik", "Vilket är rätt svar på följande mattetal: 7 + 2 x 5 - 8 = ?", "22", "37", "9", "C");
         //matematiksalen.setSubjectQuestion(mathsQuestion);
+
 
     public void initialization() {
         map = new Room[]{samlingsrummet, fransksalen, idrottssalen, matematiksalen};
@@ -81,23 +85,27 @@ public class TextAdventureGame {
 
             // Kollar vilket kommando som angivits
             if (command.equalsIgnoreCase("A")) {
-                roomActions((LectureRoom) map[1], frenchQuestion, "franska");
+                roomIndex = 1;
+                roomActions((LectureRoom) map[roomIndex], frenchQuestion, "franska");
 
             } else if (command.equalsIgnoreCase("B")) {
-                roomActions((LectureRoom) map[2], sportsQuestion, "idrott");
+                roomIndex = 2;
+                roomActions((LectureRoom) map[roomIndex], sportsQuestion, "idrott");
 
             } else if (command.equalsIgnoreCase("C")) {
-                roomActions((LectureRoom) map[3], mathsQuestion, "matematik");
+                roomIndex = 3;
+                roomActions((LectureRoom) map[roomIndex], mathsQuestion, "matematik");
 
-                //} else if (command.equalsIgnoreCase("save")) {
-                //save(room)
+            } else if (command.equalsIgnoreCase("spara")) {
+                save();
 
-            //} else if (command.equalsIgnoreCase("load")) {
-                //LoadSaveGame();
+            } else if (command.equalsIgnoreCase("ladda")) {
+                load();
+                System.out.println(map[roomIndex].getName());
 
             } else if (command.equalsIgnoreCase("sluta")) {
                 running = false;
-                //System.out.println("Tack för att du vikarierade på Bergsjöns högstadieskola");
+
             } else {
                 System.out.println("Ange ett giltigt kommando");
             }
@@ -112,12 +120,14 @@ public class TextAdventureGame {
             System.out.println(question.questionAndOptions());
             String answer = input.nextLine();
             if (answer.equalsIgnoreCase(question.getCorrectAnswer())) {
-                System.out.println("Korrekt! Du är behörig i att undervisa i " + subject + "."); // Hur gör jag "franska" till en subjectvariabel?
+                room.setQualified(true);
+                System.out.println("Korrekt! Du är behörig i att undervisa i " + subject + ".");
             } else {
                 System.out.println("Inkorrekt! Du får sparken!");
             }
         } else if (yesNo.equalsIgnoreCase("nej")) {
-            System.out.println("Du är tillbaka i " + map[0].toString());
+            roomIndex = 0;
+            System.out.println("Du är tillbaka i " + map[roomIndex].toString());
         } else {
             System.out.println("Skriv \"JA\" eller \"NEJ\"");
         }
@@ -126,28 +136,7 @@ public class TextAdventureGame {
     public void quit() {
         System.out.println("Tack för att du vikarierade på Bergsjöns högstadieskola");
     }
-/*
-    private void LoadSaveGame() {
-        String position = load();
-        if (position != null) {
-            String[] pos = position.split(", ");
-            int oldRow = row;
-            int oldCol = col;
-            row = Integer.parseInt(pos[0]);
-            col = Integer.parseInt(pos[1]);
-            if (row >= map.length) {
-                System.out.println("Error reading row coordinates from file. Are you cheating?");
-                row = oldRow;
-                col = oldCol;
-            } else {
-                if (col >= map[row].length) {
-                    System.out.println("Error reading row coordinates from file. Are you cheating?");
-                    row = oldRow;
-                    col = oldCol;
-                }
-            }
-        }
-    }*/
+
 }
 
 

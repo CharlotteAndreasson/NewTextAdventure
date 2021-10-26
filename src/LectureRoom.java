@@ -1,6 +1,7 @@
 public class LectureRoom extends Room {
     private String subject;
 
+
     public LectureRoom(String name, String description, String subject) {
         super(name, description);
         this.subject = subject;
@@ -18,6 +19,11 @@ public class LectureRoom extends Room {
 
         return roomString;
     }
+
+    public void setQualified(boolean isQualified) {
+        this.isQualified = isQualified;
+    }
+
     public String enterLectureRoom()  {
         String teacherQualification = "Du är nu i " + getName() + "\n" + getDescription() + getSubject() + "\n" + "\n";
         teacherQualification = teacherQualification + "För att veta om du är behörig i att undervisa i " + getSubject() + "," + "\n";

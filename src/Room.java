@@ -6,12 +6,13 @@ public class Room {
     private String name;
     private String description;
     private SubjectQuestion subjectQuestion;
-
+    protected boolean isQualified;
 
     // konstruktor
     public Room(String name, String description) {
         this.name = name;
         this.description = description;
+        this.isQualified = false;
 
     }
     public String getName() {return name;}
@@ -20,6 +21,9 @@ public class Room {
 
     public String getDescription() {return description;}
 
+    public boolean getIsQualified() {
+        return isQualified;
+    }
     public void setName(String newName) {name = newName; }
     public void setDescription(String newDescription) {description = newDescription;}
 
