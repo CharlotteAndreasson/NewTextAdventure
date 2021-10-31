@@ -8,6 +8,7 @@ public class Room {
     private SubjectQuestion subjectQuestion;
     protected boolean isQualified;
 
+
     // konstruktor
     public Room(String name, String description) {
         this.name = name;

@@ -2,9 +2,10 @@ public class LectureRoom extends Room {
     private String subject;
 
 
-    public LectureRoom(String name, String description, String subject) {
+    public LectureRoom(String name, String description, String subject, boolean isQualified) {
         super(name, description);
         this.subject = subject;
+        this.isQualified = false;
     }
     public String getSubject() {
         return subject;
