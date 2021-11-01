@@ -22,6 +22,8 @@ public class Student {
 
     public void setTrouble(boolean trouble) {
         isTrouble = trouble;
+
     }
 
 }
+
