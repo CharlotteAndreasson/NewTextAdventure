@@ -16,6 +16,7 @@ public class SubjectQuestion extends Question {
         return correctAnswer;
     }
 
+    // This string is printed when the player has passed a subject qualifying question.
     public String confirmedQualification() {
         String qualification = "Korrekt! Du är behörig i att undervisa i " + getSubject();
         return qualification;

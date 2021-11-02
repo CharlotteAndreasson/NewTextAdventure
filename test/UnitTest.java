@@ -1,8 +1,6 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-
-
 public class UnitTest {
 
     Room biblioteket = new Room("biblioteket", "Här ska du jobba som bibliotekarie");

@@ -2,7 +2,7 @@ public class Student {
     private String name;
     private boolean isTrouble;
 
-
+    // Object "Student" has variables name, and if the student is a troublemaker or not.
     public Student(String name, boolean isTrouble) {
         this.name = name;
         this.isTrouble = isTrouble;

@@ -17,6 +17,7 @@ public class Question {
     public String getOptionB() { return optionB; }
     public String getOptionC() { return optionC; }
 
+    // This creates a template for printing multiple choice questions.
     public String questionAndOptions() {
         String questionString = getQuestion() + " Ange en bokstav: " + "\n";
         questionString = questionString + "A) " + getOptionA() + "\n" + "B) " + getOptionB() + "\n" + "C) " + getOptionC() + "\n";
