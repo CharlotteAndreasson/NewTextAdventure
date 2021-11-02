@@ -17,6 +17,7 @@ public class TextAdventureGame {
     boolean running;
     int bullshitPoints;
     String[] classRequest;
+    String yesNo;
 
 
 
@@ -99,7 +100,7 @@ public class TextAdventureGame {
         // Här börjar spelloopen
         while (running) {
 
-            allLessonsFinished();
+
             // Läs in kommando från spelaren
             System.out.println(askDirection.questionAndOptions());
             String command = input.nextLine();
@@ -111,7 +112,9 @@ public class TextAdventureGame {
                    testDone(fransksalen.getSubject());
                 }else {
                     roomActions((LectureRoom) map[roomIndex], frenchQuestion, "franska");
-                    lessonActions();
+                    if(roomIndex > 0 && running && (yesNo.equalsIgnoreCase("yes") || yesNo.equalsIgnoreCase("no"))) {
+                        lessonActions(fransksalen);
+                    }
                 }
             } else if (command.equalsIgnoreCase("B")) {
                 roomIndex = 2;
@@ -119,7 +122,9 @@ public class TextAdventureGame {
                     testDone(idrottssalen.getSubject());
                 } else {
                     roomActions((LectureRoom) map[roomIndex], sportsQuestion, "idrott");
-                    lessonActions();
+                    if(roomIndex > 0 && running) {
+                        lessonActions(idrottssalen);
+                    }
                 }
             } else if (command.equalsIgnoreCase("C")) {
                 roomIndex = 3;
@@ -127,7 +132,9 @@ public class TextAdventureGame {
                     testDone(matematiksalen.getSubject());
                 } else {
                     roomActions((LectureRoom) map[roomIndex], mathsQuestion, "matematik");
-                    lessonActions();
+                    if(roomIndex > 0 && running) {
+                        lessonActions(matematiksalen);
+                    }
                 }
             } else if (command.equalsIgnoreCase("spara")) {
                 save();
@@ -147,47 +154,57 @@ public class TextAdventureGame {
 
     private void allLessonsFinished() {
         if(fransksalen.isQualified && idrottssalen.isQualified && matematiksalen.isQualified) {
-            System.out.println("Du är tillbaka i " + map[roomIndex].getName());
-            System.out.println("Du har tagit dig genom alla dina lektionspass och har klarat spelet." + "\n");
+            Scanner paus = new Scanner(System.in);
+            System.out.println("Tryck \"ENTER\" för att fortsätta..");
+            paus.nextLine();
+            System.out.println("Du är tillbaka i " + map[0].getName());
+            System.out.println("Du har tagit dig genom alla dina lektionspass och har klarat spelet." + "\n" + "\n");
             System.out.println("*************************");
             System.out.println("*************************");
             System.out.println("*********GRATTIS*********");
             System.out.println("*************************");
-            System.out.println("*************************");
-            quit();
+            System.out.println("*************************" + "\n");
             running = false;
 
         }
     }
 
-    private void lessonActions() {
-        System.out.println("Du påbörjar lektionen och presenterar dig för eleverna: \"Jag heter " + name + " och jag ska vikariera idag.\"");
+    private void lessonActions(LectureRoom room) {
+        System.out.println("Du påbörjar lektionen och presenterar dig för eleverna: \"Jag heter " + name + " och vikarierar idag.\"");
         System.out.print("Eleverna säger sina namn: ");
         printName(group);
         classRequest = new String[]{" skriver på tavlan", " svarar på en fråga", " läser högt från boken"};
         String studentTasks = getRandom(classRequest);
-        System.out.println("Du vill att en elev" + studentTasks + "." + "\n" + "Vilken elev frågar du? Ange ett namn:");
-        input = new Scanner(System.in);
-        String studentName = input.nextLine();
-        int i;
-        int foundAtIndex = -1;
-        for (i = 0; i < group.length; i++) {
-            if (group[i].getName().equalsIgnoreCase(studentName)) {
-                foundAtIndex = i;  // store the actual index for later use
-                break;             // no need to search further
+        System.out.println("Du vill att en elev" + studentTasks + ".");
+        while(true) {
+            System.out.println("Vilken elev frågar du? Ange ett namn:");
+            input = new Scanner(System.in);
+            String studentName = input.nextLine();
+            Student foundStudent = null;
+            for (Student student : group) {
+                if (student.getName().equalsIgnoreCase(studentName)) {
+                    foundStudent = student;
+                    break;
+                }
             }
-        }
-        if (foundAtIndex >= 0) {
-            if (group[i].getIsTrouble()) {
-                System.out.println(group[i].getName() + " börjar ställa till bråk. Hela klassen ballar ur och det blir kaos.");
-                headTeacherComes();
-                System.out.println("Du fortsätter undervisningen. Allt fortlöper utan problem och du avslutar lektionen. Bra jobbat! Gå till nästa klassrum");
+            if (foundStudent != null) {
+                if (foundStudent.getIsTrouble()) {
+                    System.out.println(foundStudent.getName() + " börjar ställa till bråk. Hela klassen ballar ur och det blir kaos.");
+                    headTeacherComes();
+                    System.out.println("Du fortsätter undervisningen. Allt fortlöper utan problem och du avslutar lektionen. Bra jobbat! Gå till nästa klassrum");
+                    room.setQualified(true);
+                    allLessonsFinished();
+                    break;
+                } else {
+                    System.out.println(foundStudent.getName() + studentTasks + ". Du fortsätter undervisningen.");
+                    System.out.println("Allt fortlöper utan problem och du avslutar lektionen. Bra jobbat! Gå till nästa klassrum." + "\n");
+                    room.setQualified(true);
+                    allLessonsFinished();
+                    break;
+                }
             } else {
-                System.out.println(group[i].getName() + studentTasks);
-                System.out.println("Du fortsätter undervisningen. Allt fortlöper utan problem och du avslutar lektionen. Bra jobbat! Gå till nästa klassrum." + "\n");
+                System.out.println("Ange namn på en elev i klassen:");
             }
-        }else{
-            System.out.println("Ange namn på en elev i klassen:"); //Denna är utanför loopen
         }
     }
 
@@ -198,22 +215,30 @@ public class TextAdventureGame {
 
     private void roomActions(LectureRoom room, SubjectQuestion question, String subject) {
         System.out.println(room.enterLectureRoom());
-        String yesNo = input.nextLine();
-        if (yesNo.equalsIgnoreCase("ja")) {
-            System.out.println(question.questionAndOptions());
-            String answer = input.nextLine();
-            if (answer.equalsIgnoreCase(question.getCorrectAnswer())) {
-                room.setQualified(true);
-                System.out.println("Korrekt! Du är behörig i att undervisa i " + subject + "." + "\n");
+        while(true) {
+            yesNo = input.nextLine();
+            if (yesNo.equalsIgnoreCase("ja")) {
+                System.out.println(question.questionAndOptions());
+                String answer = input.nextLine();
+                if (answer.equalsIgnoreCase(question.getCorrectAnswer())) {
+                    room.setQualified(true);
+                    System.out.println("Korrekt! Du är behörig i att undervisa i " + subject + "." + "\n");
+                    break;
+
+                } else {
+                    System.out.print("INKORREKT! ");
+                    headTeacherComes();
+                    break;
+
+                }
+            } else if (yesNo.equalsIgnoreCase("nej")) {
+                roomIndex = 0;
+                System.out.println("Du är tillbaka i " + map[roomIndex].toString());
+                break;
+
             } else {
-                System.out.print("INKORREKT! ");
-                headTeacherComes();
+                System.out.println("Skriv \"JA\" eller \"NEJ\"");
             }
-        } else if (yesNo.equalsIgnoreCase("nej")) {
-            roomIndex = 0;
-            System.out.println("Du är tillbaka i " + map[roomIndex].toString());
-        } else {
-            System.out.println("Skriv \"JA\" eller \"NEJ\"");
         }
     }
 
@@ -256,7 +281,7 @@ public class TextAdventureGame {
     }
 
     public void quit() {
-        System.out.println("Tack för att du vikarierade på Bergsjöns högstadieskola");
+        System.out.println("Tack för att du vikarierade på Bergsjöns högstadieskola!");
     }
 
 }

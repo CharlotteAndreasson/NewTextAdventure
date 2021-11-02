@@ -21,11 +21,26 @@ public class UnitTest {
         assertTrue(isTrouble);
     }
 
-
     @Test
     public void testToString() {
         String toString = biblioteket.toString();
         assertEquals("biblioteket" + "\n" + "Här ska du jobba som bibliotekarie" + "\n", toString);
-        }
+    }
+
+    Question question = new Question("Vill du gå på bio?", "Ja", "Nej", "Kanske");
+
+    @Test
+    public void testQuestionOption() {
+        String done = question.getOptionC();
+        assertEquals("Kanske", question.getOptionC());
+    }
+
+    LectureRoom spanish = new LectureRoom("spansksalen", "Här ska du undervisa i ", "spanska", false);
+    @Test
+    public void testisQualified() {
+        Boolean qualified = spanish.getIsQualified();
+        assertFalse(spanish.isQualified);
+
+    }
 
 }
